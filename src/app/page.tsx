@@ -1,11 +1,13 @@
 import React from 'react' 
 import Header from './components/Header'
-import CardPeriod from './components/CardPeriod'
+import First from '../app/FirstPage/Firstpage'
+
 
 const page = () => {
   return (
-    <div className='bg-custombg'><Header/> 
-    <CardPeriod/>
+    <div className='bg-slate-50'> 
+    <Header/>
+    <First/> 
     </div>
   )
 }
