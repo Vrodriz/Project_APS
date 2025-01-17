@@ -1,93 +1,72 @@
-import { useState, useRef, useEffect } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import { Button, Box } from "@mui/material";
+import { useState, useRef, useEffect } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
-interface ScopeControlProps {
-  label: string;
-  options: string[];
-}
-
-function ScopeControl({ label, options }: ScopeControlProps) {
-  // Estados para controlar a visibilidade do dropdown e os valores selecionados
+function ScopeControl({ label }: { label: string }) {
   const [isScopeVisible, setIsScopeVisible] = useState(false);
   const [value, setValue] = useState<string[]>([]);
+  const scopeElement = useRef<HTMLDivElement | null>(null);
 
-  // Criação de uma referência para o dropdown (caixa do autocomplete)
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Alternar a visibilidade do dropdown ao clicar no botão
-  const toggleScope = () => setIsScopeVisible((prev) => !prev);
-
-  // Função para fechar o dropdown ao clicar fora dele
-  const handleClickOutside = (event: MouseEvent) => {
-    // Verifica se o clique não ocorreu no dropdown ou em seus filhos
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsScopeVisible(false); // Fecha o dropdown
+  const clickOut = (event: MouseEvent) => {
+    const autoCompleteElement = document.querySelector(".MuiAutocomplete-popper");
+    if (scopeElement.current && !scopeElement.current?.contains(event.target as Node) && !autoCompleteElement?.contains(event.target as Node)) {
+      setIsScopeVisible(false); 
     }
   };
 
-  // Adicionar e remover o evento de clique global
   useEffect(() => {
-    // Adiciona o evento de clique global no documento
-    document.addEventListener("mousedown", handleClickOutside);
-    // Remove o evento de clique ao desmontar o componente
+    if (isScopeVisible) {
+      document.addEventListener("mousedown", clickOut);
+    }
+    // Cleanup ao desmontar
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", clickOut);
     };
-  }, []);
+  }, [isScopeVisible]);
+
+  const showScope = () => !isScopeVisible ? setIsScopeVisible(true) : null;
+
+  const listOptions = [
+    "TF-1",
+    'TF-2', 
+    'TF-3',
+    'TF-4', 
+    'TF-5',
+    "TF-7",
+    'TF-8', 
+  ];
 
   return (
-    // Adicionei a referência do `dropdownRef` ao container do botão e do dropdown
-    <Box className="relative" ref={dropdownRef}>
+    <div className="relative">
       {/* Custom Button */}
-      <Button
-        onMouseDown={toggleScope} // Alterna a visibilidade do dropdown ao clicar no botão
-        variant="outlined"
+      <Button 
+        onMouseDown={showScope} 
+        variant="outlined" 
         sx={{
-          backgroundColor: "white",
-          color: "#6B4F35", // Cor customBrown
-          fontWeight: "bold",
-          fontSize: "0.875rem", // Tamanho da fonte menor
-          padding: "4px 12px", // Botão menor
-          borderRadius: "6px",
-          textTransform: "none",
-          border: "1px solid #6B4F35", // Borda customBrown
-          "&:hover": {
-            backgroundColor: "#f7f7f7",
-          },
-          "& span": {
-            marginLeft: "6px",
-            color: "#6B4F35", // Cor do contador
-            fontWeight: "bold",
+          backgroundColor: '#fff',
+          color: '#6A4E23', // Marrom escuro
+          fontWeight: 'bold', 
+          fontSize: '0.975rem', 
+          padding: '8px 16px',
+          borderRadius: '8px',
+          border: '2px solid #6A4E23', // Cor de borda marrom
+          textTransform: 'none',
+          '&:hover': {
+            backgroundColor: '#f5f5f5', // Creme claro ao passar o mouse
           },
         }}
       >
-        {label} <span>{value.length}</span>
+        {label} <span className="ml-2 text-customBrown font-bold">{value.length}</span>
       </Button>
 
       {/* Autocomplete Dropdown */}
       {isScopeVisible && (
-        <Box
-          className="absolute z-10"
-          sx={{
-            minWidth: "220px",
-            maxWidth: "300px",
-            backgroundColor: "white",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-            marginTop: "8px",
-            padding: "12px",
-          }}
-        >
+        <div ref={scopeElement} className="absolute z-10 mt-2 min-w-[220px] max-w-[300px] bg-white border border-gray-300 rounded-lg shadow-xl">
           <Autocomplete
             multiple
             id="tags-outlined"
-            options={options}
+            options={listOptions}
             value={value}
             getOptionLabel={(option) => option}
             filterSelectedOptions
@@ -99,15 +78,23 @@ function ScopeControl({ label, options }: ScopeControlProps) {
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: "6px",
+                    borderRadius: "8px", // Borda arredondada
+                    backgroundColor: '#fafafa', // Creme suave
+                    border: '1px solid #6A4E23', // Cor da borda marrom
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: '#6A4E23', // Cor do label em marrom
+                  },
+                  "& .MuiAutocomplete-inputRoot": {
+                    padding: '8px 12px', // Padding para melhorar o layout
                   },
                 }}
               />
             )}
           />
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }
 
