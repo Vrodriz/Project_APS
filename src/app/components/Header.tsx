@@ -3,7 +3,7 @@ import { FaCog } from 'react-icons/fa';
 
 const Header = () => {
   return (
-    <header className="bg-customBrown w-full py-3">
+    <header className="bg-customBrown w-full py-3 mb-1">
       <div className="container mx-auto flex justify-between items-center">
        
         <div className="flex items-center space-x-2">

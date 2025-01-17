@@ -23,7 +23,7 @@ export default function DateRangePickerValue() {
 
   return (
     <Card title="Período de Programação">
-      <div className="flex flex-col sm:flex-row gap-4 py-2 justify-center items-center">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
         {/* Componente DatePicker para selecionar a data de início */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
@@ -81,27 +81,6 @@ export default function DateRangePickerValue() {
             }}
           />
         </LocalizationProvider>
-
-        {/* Botão para submeter o intervalo de datas selecionado */}
-        <Button
-          variant="outlined"
-          sx={{
-            backgroundColor: '#fff',
-            color: '#6A4E23', // Marrom escuro
-            fontWeight: 'bold',
-            fontSize: '0.975rem', 
-            padding: '10px 16px',
-            borderRadius: '8px',
-            border: '2px solid #6A4E23', // Cor da borda marrom
-            textTransform: 'none',
-            '&:hover': {
-              backgroundColor: '#f5f5f5', // Creme claro ao passar o mouse
-            },
-          }}
-          onClick={handleSubmit} // Chama a função de validação e envio do período
-        >
-          Confirmar Período
-        </Button>
       </div>
     </Card>
   );

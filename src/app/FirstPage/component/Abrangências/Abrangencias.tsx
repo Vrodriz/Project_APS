@@ -5,7 +5,7 @@ import ScopeControl from "@/app/FirstPage/component/Abrangências/ScopeControl";
 export default function Coverage() {
   return (
     <Card title="Abrangências">
-      <div className="flex flex-row gap-4 py-2 justify-center items-center">
+      <div className="flex flex-row gap-4 justify-center items-center">
       <ScopeControl label="Recursos"/>
       <ScopeControl label="Turnos"/>
       <ScopeControl label="O.Ps"/>
