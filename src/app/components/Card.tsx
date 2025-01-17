@@ -7,16 +7,17 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, children }) => {
   return (
-    <div className="bg-customBrown text-white rounded-lg p-6 shadow-lg min-w-[480px] max-w-[900px] w-full">
+    <div className="bg-customBrown text-white p-6 shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out w-full h-full flex flex-col">
       {/* Título */}
-      <div className="text-center font-bold text-xl mb-6 border-b border-white pb-2">
+      <div className="text-center font-bold text-xl mb-4 border-b border-opacity-50 border-white pb-2">
         {title}
       </div>
 
       {/* Conteúdo */}
-      <div className="flex flex-col gap-4">{children}</div>
+      <div className="flex flex-col gap-6 flex-grow">{children}</div>
     </div>
   );
 };
 
 export default Card;
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Button, Box } from "@mui/material";
@@ -9,16 +9,43 @@ interface ScopeControlProps {
 }
 
 function ScopeControl({ label, options }: ScopeControlProps) {
+  // Estados para controlar a visibilidade do dropdown e os valores selecionados
   const [isScopeVisible, setIsScopeVisible] = useState(false);
   const [value, setValue] = useState<string[]>([]);
 
+  // Criação de uma referência para o dropdown (caixa do autocomplete)
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Alternar a visibilidade do dropdown ao clicar no botão
   const toggleScope = () => setIsScopeVisible((prev) => !prev);
 
+  // Função para fechar o dropdown ao clicar fora dele
+  const handleClickOutside = (event: MouseEvent) => {
+    // Verifica se o clique não ocorreu no dropdown ou em seus filhos
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsScopeVisible(false); // Fecha o dropdown
+    }
+  };
+
+  // Adicionar e remover o evento de clique global
+  useEffect(() => {
+    // Adiciona o evento de clique global no documento
+    document.addEventListener("mousedown", handleClickOutside);
+    // Remove o evento de clique ao desmontar o componente
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <Box className="relative">
+    // Adicionei a referência do `dropdownRef` ao container do botão e do dropdown
+    <Box className="relative" ref={dropdownRef}>
       {/* Custom Button */}
       <Button
-        onMouseDown={toggleScope}
+        onMouseDown={toggleScope} // Alterna a visibilidade do dropdown ao clicar no botão
         variant="outlined"
         sx={{
           backgroundColor: "white",
@@ -65,7 +92,6 @@ function ScopeControl({ label, options }: ScopeControlProps) {
             getOptionLabel={(option) => option}
             filterSelectedOptions
             onChange={(event, newValue: string[]) => setValue(newValue)}
-            onClose={() => setIsScopeVisible(false)}
             renderInput={(params) => (
               <TextField
                 {...params}
