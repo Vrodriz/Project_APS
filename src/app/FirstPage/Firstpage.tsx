@@ -2,7 +2,8 @@
 
 import Abrangencias from '@/app/FirstPage/component/Abrangências/Abrangencias';
 import ProgramacaoInteligente from './component/periododeProgramacao';
-import { Button, Card } from '@mui/material';
+import Card from '@/app/components/Card';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 
 export default function Home() {
@@ -18,18 +19,16 @@ export default function Home() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="p-6 flex flex-col items-center">
       {/* Conteúdo */}
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-4xl">
         {/* Card Programação Inteligente */}
-        <Card
-        >
+        <Card>
           <ProgramacaoInteligente />
         </Card>
 
         {/* Card Abrangências */}
-        <Card
-        >
+        <Card>
           <Abrangencias />
         </Card>
       </div>
