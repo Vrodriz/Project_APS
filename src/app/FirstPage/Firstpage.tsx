@@ -23,16 +23,12 @@ export default function Home() {
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-4xl">
         {/* Card Programação Inteligente */}
         <Card
-          className="p-6 bg-gradient-to-r from-brown-600 to-brown-500 text-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-          elevation={3}
         >
           <ProgramacaoInteligente />
         </Card>
 
         {/* Card Abrangências */}
         <Card
-          className="p-6 bg-gradient-to-r from-brown-600 to-brown-500 text-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-          elevation={3}
         >
           <Abrangencias />
         </Card>
