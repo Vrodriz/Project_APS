@@ -1,7 +1,8 @@
 import React from 'react' 
 import Header from './components/Header'
 import First from '../app/FirstPage/Firstpage'
-import Dashboard from './FirstPage/Dashboard'
+import App from './FirstPage/dashboard/components/app'
+
 
 
 const page = () => {
@@ -9,7 +10,8 @@ const page = () => {
     <div className='bg-slate-50'> 
     <Header/>
     <First/> 
-    <Dashboard/>
+    <App/>
+    
     </div>
   )
 }
