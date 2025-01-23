@@ -1,7 +1,7 @@
 import React from 'react' 
 import Header from './components/Header'
 import First from '../app/FirstPage/Firstpage'
-import Period from '../app/FirstPage/component/Dashboardcomponents/period'
+import ProductionCalendar from './components/ProductionCalendar/ProductionCalendar'
 
 
 
@@ -11,10 +11,7 @@ const page = () => {
     <div className='bg-slate-50'> 
     <Header/>
     <First/> 
-    <Period/>
-
-    
-    
+    <ProductionCalendar/>
     </div>
   )
 }
